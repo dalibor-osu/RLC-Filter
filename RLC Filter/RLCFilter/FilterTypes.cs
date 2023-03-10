@@ -4,5 +4,6 @@ public enum FilterTypes
 {
     LowPass,
     HighPass,
-    BandPass
+    BandPass,
+    BandStop
 }

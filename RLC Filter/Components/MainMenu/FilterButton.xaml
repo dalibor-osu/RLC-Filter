@@ -11,7 +11,7 @@
              DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Border Background="Gray">
         <Button x:Name="FilterBtn" Click="FilterButton_OnClick">
-            <TextBlock x:Name="FilterBtnText" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding FilterType}"/>
+            <TextBlock x:Name="FilterBtnText" HorizontalAlignment="Center" VerticalAlignment="Center" Loaded="OnLoad"/>
         </Button>
     </Border>
 </UserControl>

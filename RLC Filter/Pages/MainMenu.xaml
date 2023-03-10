@@ -11,9 +11,10 @@
     <Grid Background="Transparent">
         <Label Foreground="White" HorizontalAlignment="Center" Margin="50" FontSize="70">Select filter type</Label>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <controls:FilterButton FilterType="Low-ass" Margin="10"/>
-            <controls:FilterButton FilterType="Band-pass" Margin="10"/>
-            <controls:FilterButton FilterType="High-pass" Margin="10"/>
+            <controls:FilterButton FilterType="LowPass"  Margin="10"/>
+            <controls:FilterButton FilterType="BandPass" Margin="10"/>
+            <controls:FilterButton FilterType="BandStop" Margin="10"/>
+            <controls:FilterButton FilterType="HighPass" Margin="10"/>
         </StackPanel>
     </Grid>
 </UserControl>
