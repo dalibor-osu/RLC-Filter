@@ -23,6 +23,7 @@ namespace RLC_Filter
         public MainWindow()
         {
             InitializeComponent();
+            Title = "RLC Filter";
             ContentControl.Content = new Pages.MainMenu(this);
         }
     }

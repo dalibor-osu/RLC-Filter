@@ -20,7 +20,7 @@ namespace RLC_Filter.Pages
             set
             {
                 _filter = value; 
-                RefreshPlot();
+                Task.Run(RefreshPlot);
             }
         }
 
@@ -42,16 +42,22 @@ namespace RLC_Filter.Pages
 
         public void ChangeAxes(double startX, double endX, int numberOfPoints)
         {
+            if (_startX > _endX) 
+                return;
+            
+            if (numberOfPoints <= 0)
+                return;
+            
             _startX = startX;
             _endX = endX;
             _numberOfPoints = numberOfPoints;
-            RefreshPlot();
+            Task.Run(RefreshPlot);
         }
 
-        private void RefreshPlot()
+        private Task RefreshPlot()
         {
             MyModel.Series.Clear();
-            MyModel.Series.Add(new FunctionSeries(value => Filter.FrequencyResponseInDb(value), _startX, _endX, (_endX - _startX) / _numberOfPoints, "Band Pass"));
+            MyModel.Series.Add(new FunctionSeries(value => Filter.FrequencyResponseInDb(value), _startX, _endX, (_endX - _startX) / _numberOfPoints, Filter.Name));
             MyModel.Axes.Clear();
             MyModel.Axes.Add(new LogarithmicAxis
             {
@@ -60,6 +66,7 @@ namespace RLC_Filter.Pages
                 Maximum = _endX
             });
             MyModel.InvalidatePlot(true);
+            return Task.CompletedTask;
         }
     }
 }

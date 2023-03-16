@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using OxyPlot;
 using OxyPlot.Series;
@@ -29,6 +31,7 @@ public partial class FilterEditor : UserControl
     {
         StartXBox.Text = 1.ToString();
         EndXBox.Text = 5000.ToString();
+        PointsBox.Text = 10000.ToString();
 
         ResistorBox.Text = _model.Filter.Resistor.Value.ToString();
         CapacitorBox.Text = _model.Filter.Capacitor.Value.ToString();
@@ -75,5 +78,11 @@ public partial class FilterEditor : UserControl
             double.TryParse(EndXBox.Text, out endX) &&
             int.TryParse(PointsBox.Text, out numberOfPoints))
             _model.ChangeAxes(startX, endX, numberOfPoints);
+    }
+
+    private void BackBtn_OnClick(object sender, RoutedEventArgs e)
+    {
+        MainWindow window = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive) as MainWindow;
+        window.ContentControl.Content = new MainMenu(window);
     }
 }
