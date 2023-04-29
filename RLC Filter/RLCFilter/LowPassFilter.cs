@@ -1,4 +1,5 @@
-﻿using RLC_Filter.RLCFilter.FrequencyTypes;
+﻿using System;
+using RLC_Filter.RLCFilter.FrequencyTypes;
 
 namespace RLC_Filter.RLCFilter;
 
@@ -18,4 +19,7 @@ public class LowPassFilter : Filter
 
     public override double FrequencyResponse(AngularFrequency angularFrequency) =>
         (1 / (angularFrequency * Capacitor.Value)) / GetDenominator(angularFrequency);
+
+    public override double PhaseShift(AngularFrequency angularFrequency) =>
+        -Math.Atan(angularFrequency * Resistor.Value * Capacitor.Value) * (180 / Math.PI);
 }

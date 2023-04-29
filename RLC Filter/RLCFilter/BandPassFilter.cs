@@ -20,4 +20,16 @@ public class BandPassFilter : Filter
 
     public override double FrequencyResponse(AngularFrequency angularFrequency) =>
         Resistor.Value / GetDenominator(angularFrequency);
+
+    public override double PhaseShift(AngularFrequency angularFrequency) =>
+        (Math.PI / 2 - Math.Atan(((2 * QualityFactor() * angularFrequency) / Freq()) +
+                                Math.Sqrt(4 * Math.Pow(QualityFactor(), 2) - 1)) -
+        Math.Atan(((2 * QualityFactor() * angularFrequency) / Freq()) -
+                  Math.Sqrt(4 * Math.Pow(QualityFactor(), 2) - 1))) * (180 / Math.PI);
+
+    private double QualityFactor() =>
+        Math.Sqrt(Inductor.Value / (Capacitor.Value * Math.Pow(Resistor.Value, 2)));
+
+    private double Freq() =>
+        1 / (Resistor.Value * Capacitor.Value);
 }

@@ -30,7 +30,8 @@
             <Label>Inductor value:</Label>
             <TextBox x:Name="InductorBox" TextChanged="ValueBox_OnTextChanged" BorderThickness="1" BorderBrush="Black" Width="200" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         </StackPanel>
-        <oxy:PlotView x:Name="Plot" Model="{Binding MyModel}" Width="1000" Height="670" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+        <oxy:PlotView x:Name="FreqPlot" Model="{Binding FreqModel}" Width="1000" Height="335" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+        <oxy:PlotView x:Name="PhasePlot" Model="{Binding PhaseModel}" Width="1000" Height="335" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
         <Button x:Name="BackBtn" Margin="10" Width="100" Height="50" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="BackBtn_OnClick">Back</Button>
     </Grid>
 </UserControl>
