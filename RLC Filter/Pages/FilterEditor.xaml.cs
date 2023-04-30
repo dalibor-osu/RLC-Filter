@@ -7,6 +7,7 @@ using OxyPlot;
 using OxyPlot.Series;
 using OxyPlot.Wpf;
 using RLC_Filter.RLCFilter;
+using RLC_Filter.RLCFilter.FrequencyTypes;
 
 namespace RLC_Filter.Pages;
 
@@ -30,7 +31,7 @@ public partial class FilterEditor : UserControl
     private void InitializeTextBoxes()
     {
         StartXBox.Text = 1.ToString();
-        EndXBox.Text = 5000.ToString();
+        EndXBox.Text = 1000.ToString();
         PointsBox.Text = 10000.ToString();
 
         ResistorBox.Text = _model.Filter.Resistor.Value.ToString();
@@ -67,7 +68,10 @@ public partial class FilterEditor : UserControl
         if (double.TryParse(ResistorBox.Text, out resistor) &&
             double.TryParse(CapacitorBox.Text, out capacitor) &&
             double.TryParse(InductorBox.Text, out inductor))
+        {
             _model.Filter = GetFilterFromType(_type, new FilterComponents(resistor, capacitor, inductor));
+            CutoffBox.Content = Math.Round((Frequency)_model.Filter.CutoffFrequency(), 2);
+        }
     }
 
     private void GraphPropertyBox_OnTextChanged(object sender, TextChangedEventArgs e)

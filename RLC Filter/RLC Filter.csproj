@@ -10,9 +10,6 @@
 
     <ItemGroup>
       <None Remove="Assets\lowpass-schema.png" />
-      <Resource Include="Assets\lowpass-schema.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Resource>
     </ItemGroup>
 
     <ItemGroup>

@@ -21,8 +21,14 @@ public class BandStopFilter : Filter
         GetDenominator(angularFrequency);
 
     public override double PhaseShift(AngularFrequency angularFrequency) =>
-        -Math.Pow(
-            Math.Tan((angularFrequency / (Resistor.Value * Capacitor.Value)) /
-                     (1 * (Capacitor.Value / Inductor.Value) - Math.Pow(angularFrequency, 2))),
-            -1);
+        (Math.PI / 2 - Math.Atan(((2 * QualityFactor() * angularFrequency) / Freq()) +
+                                 Math.Sqrt(4 * Math.Pow(QualityFactor(), 2) - 1)) -
+         Math.Atan(((2 * QualityFactor() * angularFrequency) / Freq()) -
+                   Math.Sqrt(4 * Math.Pow(QualityFactor(), 2) - 1))) * (180 / Math.PI);
+
+    private double QualityFactor() =>
+        Math.Sqrt(Inductor.Value / (Capacitor.Value * Math.Pow(Resistor.Value, 2)));
+
+    private double Freq() =>
+        1 / (Resistor.Value * Capacitor.Value);
 }

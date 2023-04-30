@@ -12,23 +12,33 @@
     </UserControl.DataContext>
     <Grid Background="White" Margin="10">
         <StackPanel Margin="10, 10, 0, 0">
-            <Label>Min X:</Label>
+            <Label Width="200" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold">Graph Settings</Label>
+            
+            <Label>Min frequency:</Label>
             <TextBox x:Name="StartXBox" TextChanged="GraphPropertyBox_OnTextChanged" BorderThickness="1" BorderBrush="Black" Width="200" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             
-            <Label>Max X:</Label>
+            <Label>Max frequency:</Label>
             <TextBox x:Name="EndXBox" TextChanged="GraphPropertyBox_OnTextChanged" BorderThickness="1" BorderBrush="Black" Width="200" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             
             <Label>Number of points:</Label>
             <TextBox x:Name="PointsBox" TextChanged="GraphPropertyBox_OnTextChanged" BorderThickness="1" BorderBrush="Black" Width="200" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            
-            <Label Margin="0,50,0,0">Resistor value:</Label>
+
+            <Label Width="200" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" Margin="0,50,0,0">Filter Settings</Label>
+
+            <Label>Resistor value [Ω]:</Label>
             <TextBox x:Name="ResistorBox" TextChanged="ValueBox_OnTextChanged" BorderThickness="1" BorderBrush="Black" Width="200" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             
-            <Label>Capacitor value:</Label>
+            <Label>Capacitor value [F]:</Label>
             <TextBox x:Name="CapacitorBox" TextChanged="ValueBox_OnTextChanged" BorderThickness="1" BorderBrush="Black" Width="200" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top"/>
            
-            <Label>Inductor value:</Label>
+            <Label>Inductor value [H]:</Label>
             <TextBox x:Name="InductorBox" TextChanged="ValueBox_OnTextChanged" BorderThickness="1" BorderBrush="Black" Width="200" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label Width="200" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" Margin="0,50,0,0">Filter Info</Label>
+
+            <Grid Width="200" HorizontalAlignment="Left">
+                <Label>Cutoff Freq. [Hz]:</Label>
+                <Label x:Name="CutoffBox" HorizontalAlignment="Right"></Label>
+            </Grid>
         </StackPanel>
         <oxy:PlotView x:Name="FreqPlot" Model="{Binding FreqModel}" Width="1000" Height="335" HorizontalAlignment="Right" VerticalAlignment="Top"/>
         <oxy:PlotView x:Name="PhasePlot" Model="{Binding PhaseModel}" Width="1000" Height="335" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>

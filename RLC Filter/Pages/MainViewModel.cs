@@ -1,4 +1,5 @@
-﻿using OxyPlot.Series;
+﻿using System;
+using OxyPlot.Series;
 using OxyPlot;
 using System.Threading.Tasks;
 using OxyPlot.Axes;
@@ -24,7 +25,7 @@ namespace RLC_Filter.Pages
         }
 
         private double _startX = 1;
-        private double _endX = 5000;
+        private double _endX = 1000;
         private int _numberOfPoints = 10000;
 
         public MainViewModel()
@@ -32,22 +33,7 @@ namespace RLC_Filter.Pages
             FreqModel = new PlotModel { Title = "Frequency Response" };
             PhaseModel = new PlotModel { Title = "Phase Shift" };
 
-            LogarithmicAxis yAxisFreq = new LogarithmicAxis
-            {
-                Position = AxisPosition.Bottom,
-                Minimum = _startX,
-                Maximum = _endX
-            };
-
-            LogarithmicAxis yAxisPhase = new LogarithmicAxis
-            {
-                Position = AxisPosition.Bottom,
-                Minimum = _startX,
-                Maximum = _endX
-            };
-
-            PhaseModel.Axes.Add(yAxisPhase);
-            FreqModel.Axes.Add(yAxisFreq);
+            ResetPlotAxes();
         }
 
         public void ChangeAxes(double startX, double endX, int numberOfPoints)
@@ -69,34 +55,48 @@ namespace RLC_Filter.Pages
             FreqModel.Series.Clear();
             PhaseModel.Series.Clear();
             
-            FreqModel.Series.Add(new FunctionSeries(value => Filter.FrequencyResponseInDb(value), _startX, _endX,
+            FreqModel.Series.Add(new FunctionSeries(value => Filter.FrequencyResponseInDb(value * 2 * Math.PI), _startX, _endX,
                 (_endX - _startX) / _numberOfPoints, Filter.Name));
-            PhaseModel.Series.Add(new FunctionSeries(value => Filter.PhaseShift(value), _startX, _endX,
+            PhaseModel.Series.Add(new FunctionSeries(value => Filter.PhaseShift(value * 2 * Math.PI), _startX, _endX,
                 (_endX - _startX) / _numberOfPoints, Filter.Name));
             
-            FreqModel.Axes.Clear();
-            PhaseModel.Axes.Clear();
+            ResetPlotAxes();
             
-            LogarithmicAxis yAxisFreq = new LogarithmicAxis
-            {
-                Position = AxisPosition.Bottom,
-                Minimum = _startX,
-                Maximum = _endX
-            };
-
-            LogarithmicAxis yAxisPhase = new LogarithmicAxis
-            {
-                Position = AxisPosition.Bottom,
-                Minimum = _startX,
-                Maximum = _endX
-            };
-            
-            FreqModel.Axes.Add(yAxisFreq);
-            PhaseModel.Axes.Add(yAxisPhase);
             FreqModel.InvalidatePlot(true);
             PhaseModel.InvalidatePlot(true);
             
             return Task.CompletedTask;
+        }
+
+        private void ResetPlotAxes()
+        {
+            FreqModel.Axes.Clear();
+            PhaseModel.Axes.Clear();
+
+            FreqModel.Axes.Add(GetXAxis());
+            FreqModel.Axes.Add(GetYAxis("Magnitude"));
+            PhaseModel.Axes.Add(GetXAxis());
+            PhaseModel.Axes.Add(GetYAxis("Phase"));
+        }
+
+        private LogarithmicAxis GetXAxis()
+        {
+            return new LogarithmicAxis
+            {
+                Position = AxisPosition.Bottom,
+                Minimum = _startX,
+                Maximum = _endX,
+                Title = "Frequency [Hz]"
+            };
+        }
+        
+        private LinearAxis GetYAxis(string title)
+        {
+            return new LinearAxis()
+            {
+                Position = AxisPosition.Left,
+                Title = title
+            };
         }
     }
 }

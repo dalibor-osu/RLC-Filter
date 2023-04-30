@@ -36,4 +36,7 @@ public abstract class Filter
         20 * Math.Log10(FrequencyResponse(angularFrequency));
 
     public abstract double PhaseShift(AngularFrequency angularFrequency);
+
+    public AngularFrequency CutoffFrequency() =>
+        1 / Math.Sqrt(Inductor.Value * Capacitor.Value);
 }
