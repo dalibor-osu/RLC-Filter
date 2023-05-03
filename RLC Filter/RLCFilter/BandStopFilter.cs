@@ -28,7 +28,10 @@ public class BandStopFilter : Filter
 
     private double QualityFactor() =>
         Math.Sqrt(Inductor.Value / (Capacitor.Value * Math.Pow(Resistor.Value, 2)));
+    
+    public override AngularFrequency CutoffFrequency() =>
+        1 / Math.Sqrt(Capacitor.Value * Inductor.Value);
 
     private double Freq() =>
-        1 / (Resistor.Value * Capacitor.Value);
+        CutoffFrequency();
 }

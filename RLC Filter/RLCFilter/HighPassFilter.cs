@@ -22,4 +22,7 @@ public class HighPassFilter : Filter
 
     public override double PhaseShift(AngularFrequency angularFrequency) =>
         Math.Atan(1 / (angularFrequency * Resistor.Value * Capacitor.Value)) * (180 / Math.PI);
+
+    public override AngularFrequency CutoffFrequency() =>
+        1 / (Math.Sqrt(Inductor.Value * Capacitor.Value));
 }

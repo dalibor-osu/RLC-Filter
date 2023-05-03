@@ -22,4 +22,7 @@ public class LowPassFilter : Filter
 
     public override double PhaseShift(AngularFrequency angularFrequency) =>
         -Math.Atan(angularFrequency * Resistor.Value * Capacitor.Value) * (180 / Math.PI);
+
+    public override AngularFrequency CutoffFrequency() =>
+        1 / (Resistor.Value * Capacitor.Value);
 }
